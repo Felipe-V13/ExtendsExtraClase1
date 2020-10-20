@@ -1,61 +1,51 @@
-import java.net.ServerSocket;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
-public class BuscadorDePuertos {
+/** Envía el mensaje mediante sockets
+ * @version 1.2
+ * @since 0.4
+ */
 
-    private ServerSocket serverSocket;
+public class EnviaMensaje {
 
-    /** Prueba si un puerto está disponible
+    DataInputStream in;
+    DataOutputStream out;
+    Socket socket;
+
+    /** Envía el mensaje a la dirección de loopback
      *
-     * @param puerto de prueba
-     * @return valor buleano de si el puerto está disponible
+     * @param host de destino
+     * @param puerto de destino
+     * @param mensaje
+     * @param puerto de origen
+     * @return valor buleano
      */
 
-    private boolean RevisaPuerto(int puerto) {
-        boolean resultado;
+    public boolean Enviar(String hostDestino, int puertoDestino, String mensaje, int puertoOrigen){
 
         try {
 
-            serverSocket = new ServerSocket(puerto);
-            serverSocket.close();
-            resultado = true;
+            socket = new Socket(hostDestino, puertoDestino);
+
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+
+            out.writeUTF(puertoOrigen + ": " + mensaje);
+
+            out.close();
+
+            socket.close();
+
+            return false;
 
         }
-        catch (Exception e) {
-            resultado = false;
+        catch (IOException e) {
+
+            System.out.println("Problemas de conexión.");
+            return true;
+
         }
-
-        return (resultado);
-    }
-
-    /** Busca un puerto disponible, comenzando en 40 000
-     *
-     * @return puerto disponible
-     */
-
-    public int BuscaPuerto() {
-
-        int puerto = 40000;
-        boolean encontrado = false;
-
-        System.out.println("Buscando puerto...");
-
-        while (encontrado == false) {
-
-            if (puerto > 65535) {
-                System.out.println("No hay puertos disponibles.");
-                break;
-            }
-
-            else if (RevisaPuerto(puerto)){
-                System.out.println("Puerto encontrado: " + puerto);
-                encontrado = true;
-            }
-
-            else{
-                puerto++;
-            }
-        }
-
-        return puerto;
     }
 }
