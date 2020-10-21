@@ -43,7 +43,7 @@ public class EnviaMensaje {
         }
         catch (IOException e) {
 
-            System.out.println("Problemas de conexión.");
+            System.out.println("Problemas de conexión con el servidor");
             return true;
 
         }
