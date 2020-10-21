@@ -1,3 +1,4 @@
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.ServerSocket;
@@ -9,6 +10,7 @@ import java.net.ServerSocket;
  */
 
 public class BuscadorDePuertos {
+    private static Logger log = LoggerFactory.getLogger(BuscadorDePuertos.class);
 
     private ServerSocket serverSocket;
 
@@ -29,6 +31,7 @@ public class BuscadorDePuertos {
 
         }
         catch (Exception e) {
+            log.debug("El puerto no esta disponible");
             resultado = false;
         }
 
@@ -50,6 +53,7 @@ public class BuscadorDePuertos {
         while (encontrado == false) {
 
             if (puerto > 65535) {
+                log.info("No hay puertos disponibles");
                 System.out.println("No hay puertos disponibles.");
                 break;
             }

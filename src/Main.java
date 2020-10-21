@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -10,6 +13,8 @@ import java.net.ServerSocket;
 
 
 public class Main {
+
+    private static Logger log = LoggerFactory.getLogger(Main.class);
 
     /** Ejecuta el programa de forma inmediata
      * @param args
@@ -46,7 +51,7 @@ public class Main {
 
             }
             catch (IOException e) {                                     // Si la conexion falló
-
+                log.info("La conexion fallo");
                 socket.close();                                         // Cierra el socket para posibilitar la recepción de otros mensajes
 
             }

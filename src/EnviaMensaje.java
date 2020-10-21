@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +12,7 @@ import java.net.Socket;
  */
 
 public class EnviaMensaje {
+    private static Logger log = LoggerFactory.getLogger(EnviaMensaje.class);
 
     DataInputStream in;
     DataOutputStream out;
@@ -43,7 +47,8 @@ public class EnviaMensaje {
         }
         catch (IOException e) {
 
-            System.out.println("Problemas de conexión con el servidor");
+            //System.out.println("Problemas de conexión con el servidor");
+            log.error("Problemas de conexión con el servidor");
             return true;
 
         }

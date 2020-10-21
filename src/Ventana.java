@@ -126,7 +126,6 @@ public class Ventana extends JFrame {
     ActionListener nuevoChat = new ActionListener() {
         @Override
         public void actionPerformed(final ActionEvent aEvent) {
-            log.info("Introduzca un puerto");
 
             cajaPuertoNuevoChat.setText(cajaPuertoNuevoChat.getText().replace(" ", "")); // quitar espacios de un String: // http://chuwiki.chuidiang.org/index.php?title=Eliminar_espacios_de_un_String_en_Java
 
@@ -140,7 +139,7 @@ public class Ventana extends JFrame {
 
             } catch (final Exception e) {
                 MensajeEmergente("Introduza un puerto válido.");
-                log.error(e.getMessage(), e);
+                log.error("Se introdujo un puerto no valido");
                 return;
             }
 
@@ -237,7 +236,7 @@ public class Ventana extends JFrame {
             try {
                 todosLosChats.get(puerto).equals(null);         // si el chat no existe, lanza una excepción
             } catch (final Exception e) {
-
+                log.error("El puerto no coincidida con el buscado");
                 todosLosChats.put(puerto, mensaje + "\n");      // entonces simplemente crea el chat con el primer mensaje
                 return;
 
