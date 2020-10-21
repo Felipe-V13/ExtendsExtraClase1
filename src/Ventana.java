@@ -1,3 +1,5 @@
+import org.slf4j.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -37,6 +39,7 @@ public class Ventana extends JFrame {
     private int puertoActual = 0;
     private String puertoActualStr = "0";
 
+    private static Logger log = LoggerFactory.getLogger(Ventana.class);
     /** Constructor
      */
 
@@ -123,6 +126,7 @@ public class Ventana extends JFrame {
     ActionListener nuevoChat = new ActionListener() {
         @Override
         public void actionPerformed(final ActionEvent aEvent) {
+            log.info("Introduzca un puerto");
 
             cajaPuertoNuevoChat.setText(cajaPuertoNuevoChat.getText().replace(" ", "")); // quitar espacios de un String: // http://chuwiki.chuidiang.org/index.php?title=Eliminar_espacios_de_un_String_en_Java
 
@@ -135,8 +139,8 @@ public class Ventana extends JFrame {
                 todosLosChats.put(puertoActualStr, cajaChat.getText());
 
             } catch (final Exception e) {
-
                 MensajeEmergente("Introduza un puerto válido.");
+                log.error(e.getMessage(), e);
                 return;
             }
 
